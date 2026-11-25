@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyMate - Full App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone">
+
+    <button class="audio-toggle" id="audio-btn" onclick="toggleAudio()" title="Nyalakan/Matikan Musik">🎵</button>
+
+    <!-- ================= LOGIN ================= -->
+    <div id="page-login" class="login-screen">
+        <div class="logo-icon">🎓</div>
+        <div class="brand">StudyMate</div>
+        <div class="subbrand">Student Organizer</div>
+        <div class="input-group"><input type="text" id="login-user" placeholder="Username" value=""></div>
+        <div class="input-group"><input type="password" id="login-pass" placeholder="Password" value=""></div>
+        <button class="btn" onclick="login()">Login</button>
+        <div class="link">Belum punya akun? Daftar</div>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="page-dashboard" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header">
+            <div>
+                <div class="greeting">Halo, <span id="user-name-display">Andi</span>! 👋</div>
+                <div class="greeting-sub">Semangat belajar hari ini!</div>
+            </div>
+            <div style="font-size: 20px;">🔔</div>
+        </div>
+        <div class="content">
+            <h4 style="font-size: 12px; margin-bottom: 10px; color: var(--text-light);">Ringkasan Aktivitas</h4>
+            <div class="summary">
+                <div class="summary-card"><div class="num" id="dash-jadwal-count">0</div><div class="label">Jadwal</div></div>
+                <div class="summary-card"><div class="num" id="dash-tugas-count">0</div><div class="label">Tugas</div></div>
+                <div class="summary-card"><div class="num" id="dash-deadline-count">0</div><div class="label">Deadline</div></div>
+            </div>
+            <h4 style="font-size: 12px; margin-bottom: 10px; color: var(--text-light);">Menu Utama</h4>
+            <div class="menu-grid">
+                <div class="menu-item bg-blue" onclick="showPage('page-jadwal')"><div class="icon">📅</div>
+                <div class="text">Jadwal Kuliah</div></div>
+                <div class="menu-item bg-green" onclick="showPage('page-tugas')"><div class="icon">✅</div>
+                <div class="text">Tugas</div></div>
+                <div class="menu-item bg-orange" onclick="showPage('page-kalender')"><div class="icon">🗓️</div>
+                <div class="text">Kalender</div></div>
+                <div class="menu-item bg-purple" onclick="showPage('page-profil')"><div class="icon">👤</div>
+                <div class="text">Profil</div></div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= JADWAL ================= -->
+    <div id="page-jadwal" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header">
+            <button class="back-btn" onclick="showPage('page-dashboard')">←</button>
+            Jadwal Kuliah
+            <button class="action-btn" onclick="showPage('page-tambah-jadwal')">+</button>
+        </div>
+        <div class="content" id="jadwal-list-container"></div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item active" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+        <!-- ================= TAMBAH JADWAL ================= -->
+    <div id="page-tambah-jadwal" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header"><button class="back-btn" onclick="showPage('page-jadwal')">←</button>
+            Tambah Jadwal <span>+</span></div>
+        <div class="content">
+            <div class="form-group">
+                <label>Nama Mata Kuliah</label>
+                <input type="text" id="input-jadwal-nama" placeholder="Contoh: Algoritma">
+            </div>
+            <div class="form-group">
+                <label>Hari</label>
+                <select id="input-jadwal-hari">
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
+                    <option value="Sabtu">Sabtu</option>
+                    <option value="Minggu">Minggu</option>
+                </select>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div class="form-group">
+                    <label>Jam Mulai</label>
+                    <input type="time" id="input-jadwal-mulai">
+                </div>
+                <div class="form-group">
+                    <label>Jam Selesai</label>
+                    <input type="time" id="input-jadwal-selesai">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Ruang</label>
+                <input type="text" id="input-jadwal-ruang" placeholder="Contoh: A1">
+            </div>
+            <!-- 🆕 FIELD BARU: Berlaku Sampai -->
+            <div class="form-group">
+                <label>Berlaku Sampai Tanggal</label>
+                <input type="date" id="input-jadwal-sampai">
+                <div style="font-size:11px; color:var(--text-light); margin-top:4px;">
+                    Kosongkan = hanya 1x pertemuan minggu ini
+                </div>
+            </div>
+            <button class="btn" onclick="simpanJadwal()">Simpan</button>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= DAFTAR TUGAS ================= -->
+    <div id="page-tugas" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header">
+            <button class="back-btn" onclick="showPage('page-dashboard')">←</button>
+            Tugas
+            <button class="action-btn" onclick="showPage('page-tambah-tugas')">+</button>
+        </div>
+        <div class="content">
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterTasks('all', this)">Semua</button>
+                <button class="filter-btn" onclick="filterTasks('todo', this)">Belum Selesai</button>
+                <button class="filter-btn" onclick="filterTasks('done', this)">Selesai</button>
+            </div>
+            <div id="task-list-container"></div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= TAMBAH TUGAS ================= -->
+    <div id="page-tambah-tugas" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header"><button class="back-btn" onclick="showPage('page-tugas')">←</button>
+             Tambah Tugas <span>+</span></div>
+        <div class="content">
+            <div class="form-group">
+                <label>Nama Tugas</label>
+                <input type="text" id="input-tugas-nama" placeholder="Contoh: Laporan Jaringan">
+            </div>
+            <div class="form-group">
+                <label>Tanggal Deadline</label>
+                <input type="date" id="input-tugas-tgl">
+            </div>
+            <div class="form-group">
+                <label>Prioritas</label>
+                <select id="input-tugas-prioritas">
+                    <option value="Tinggi">🔴 Tinggi</option>
+                    <option value="Sedang">🟡 Sedang</option>
+                    <option value="Rendah">🟢 Rendah</option>
+                </select>
+            </div>
+            <button class="btn" onclick="simpanTugas()">Simpan</button>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= KALENDER ================= -->
+    <div id="page-kalender" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header"><button class="back-btn" onclick="showPage('page-dashboard')">←</button>
+             Kalender <span>📅</span></div>
+        <div class="content">
+            <div class="calendar-nav">
+                <button onclick="changeMonth(-1)">&lt;</button>
+                <span id="cal-month-year">Mei 2025</span>
+                <button onclick="changeMonth(1)">&gt;</button>
+            </div>
+            <div class="days-header"><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div>
+            <div>Jum</div><div>Sab</div><div>Min</div></div>
+            <div class="days-grid" id="cal-grid"></div>
+            <div style="margin-top: 20px;">
+                <h4 style="font-size: 13px; margin-bottom: 10px;">Agenda Minggu Ini</h4>
+                <div id="cal-events-list"></div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item active" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= PROFIL ================= -->
+    <div id="page-profil" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header"><button class="back-btn" onclick="showPage('page-dashboard')">
+            ←</button> Profil <span>⚙️</span></div>
+        <div class="content">
+            <div class="profile-header">
+                <div class="avatar">👨‍🎓</div>
+                <div class="profile-name" id="profile-name">Andi Pratama</div>
+                <div class="profile-email" id="profile-email">andi@student.ac.id</div>
+                <div class="profile-extra" id="profile-extra">NIM: - • Kelas: -</div>
+            </div>
+            <div class="menu-list">
+                <div class="menu-list-item" onclick="showPage('page-edit-profil')">👤 Edit Profil <span style="margin-left:auto;">></span></div>
+                <div class="menu-list-item">🔔 Pengaturan Notifikasi <span style="margin-left:auto;">></span></div>
+                <div class="menu-list-item" onclick="showPage('page-tentang')">ℹ️ Tentang Aplikasi <span style="margin-left:auto;">></span></div>
+                <div class="menu-list-item" style="color: var(--danger);" onclick="logout()">
+                    🚪 Keluar Akun <span style="margin-left:auto;">></span></div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item active" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= EDIT PROFIL (BARU) ================= -->
+    <div id="page-edit-profil" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header"><button class="back-btn" onclick="showPage('page-profil')">←</button>
+             Edit Profil <span>✏️</span></div>
+        <div class="content">
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="edit-nama" placeholder="Nama kamu">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="edit-email" placeholder="email@student.ac.id">
+            </div>
+            <div class="form-group">
+                <label>NIM</label>
+                <input type="text" id="edit-nim" placeholder="Contoh: 12345678">
+            </div>
+            <div class="form-group">
+                <label>Jurusan</label>
+                <input type="text" id="edit-jurusan" placeholder="Contoh: Teknik Informatika">
+            </div>
+            <div class="form-group">
+                <label>Kelas</label>
+                <input type="text" id="edit-kelas" placeholder="Contoh: TI-2A">
+            </div>
+            <button class="btn" onclick="simpanProfil()">Simpan Perubahan</button>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item active" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+    <!-- ================= TENTANG APLIKASI (BARU) ================= -->
+    <div id="page-tentang" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+        <div class="screen-header"><button class="back-btn" onclick="showPage('page-profil')">←</button>
+             Tentang Aplikasi <span>ℹ️</span></div>
+        <div class="content">
+            <div style="text-align:center; padding: 20px 0;">
+                <div style="font-size:60px;">🎓</div>
+                <div style="font-size:24px; font-weight:bold; color:var(--primary);">StudyMate</div>
+                <div style="font-size:12px; color:var(--text-light);">v2.0.0</div>
+            </div>
+            <div style="background:var(--bg); padding:15px; border-radius:12px; margin-bottom:15px;">
+                <p style="font-size:13px; line-height:1.6; color:var(--text);">
+                    <b>StudyMate</b> adalah aplikasi organizer mahasiswa untuk mengelola
+                    jadwal kuliah, tugas, dan deadline dalam satu tempat. Dirancang
+                    simpel biar kamu fokus belajar, bukan ribet ngatur jadwal.
+                </p>
+            </div>
+            <h4 style="font-size:13px; margin-bottom:10px;">✨ Fitur Utama</h4>
+            <div style="background:var(--bg); padding:15px; border-radius:12px; margin-bottom:15px;">
+                <div style="font-size:12px; line-height:2; color:var(--text);">
+                    📅 <b>Jadwal Kuliah</b> — tambah & lihat jadwal mingguan<br>
+                    ✅ <b>Tugas</b> — kelola tugas + deadline<br>
+                    🗓️ <b>Kalender</b> — lihat agenda bulanan<br>
+                    👤 <b>Profil</b> — data mahasiswa bisa diedit<br>
+                    🎵 <b>Audio</b> — notifikasi suara & musik santai
+                </div>
+            </div>
+            <h4 style="font-size:13px; margin-bottom:10px;">👨‍💻 Developer</h4>
+            <div style="background:var(--bg); padding:15px; border-radius:12px; margin-bottom:15px;">
+                <div style="font-size:12px; line-height:1.8; color:var(--text);">
+                    Dibuat oleh <b>Tim StudyMate</b><br>
+                    © 2025 — Untuk tugas kuliah 💪
+                </div>
+            </div>
+            <button class="btn" onclick="showPage('page-profil')">Kembali</button>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showPage('page-dashboard')"><span class="icon">🏠</span>Beranda</div>
+            <div class="nav-item" onclick="showPage('page-jadwal')"><span class="icon">📅</span>Jadwal</div>
+            <div class="nav-item" onclick="showPage('page-kalender')"><span class="icon">🗓️</span>Kalender</div>
+            <div class="nav-item active" onclick="showPage('page-profil')"><span class="icon">👤</span>Profil</div>
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

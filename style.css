@@ -1,0 +1,209 @@
+/* ================= UBAH WARNA ================= */
+:root {
+    --primary: #4f3cc9;
+    --primary-light: #ece9ff;
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --danger: #ef4444;
+    --success: #10b981;
+    --warning: #f59e0b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { background: var(--bg); color: var(--text); padding: 20px; display: flex; justify-content: center; }
+
+/* Container HP */
+.phone {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card);
+    border-radius: 35px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.screen-header {
+    background: var(--primary);
+    color: white;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.screen-header .back-btn, .screen-header .action-btn {
+    background: none; border: none; color: white; font-size: 18px; cursor: pointer;
+}
+
+.content { padding: 20px; flex: 1; overflow-y: auto; }
+
+/* ================= LOGIN ================= */
+.login-screen { display: flex; flex-direction: column; justify-content: center;
+     align-items: center; height: 100%; padding: 30px; }
+.logo-icon { font-size: 60px; margin-bottom: 10px; }
+.brand { font-size: 28px; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
+.subbrand { font-size: 12px; color: var(--text-light); margin-bottom: 40px; }
+.input-group { width: 100%; margin-bottom: 15px; }
+.input-group input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 10px; outline: none; }
+.input-group input:focus { border-color: var(--primary); }
+.btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none;
+     border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.link { font-size: 12px; color: var(--text-light); text-align: center; margin-top: 15px; cursor: pointer; }
+
+/* ================= DASHBOARD ================= */
+.greeting { font-size: 18px; font-weight: bold; }
+.greeting-sub { font-size: 12px; color: rgba(255,255,255,0.8); }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.summary-card { background: var(--bg); padding: 15px; border-radius: 12px; text-align: center; }
+.summary-card .num { font-size: 20px; font-weight: bold; color: var(--primary); }
+.summary-card .label { font-size: 10px; color: var(--text-light); }
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.menu-item { padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.2s; }
+.menu-item:hover { transform: translateY(-2px); }
+.menu-item .icon { font-size: 24px; margin-bottom: 8px; }
+.menu-item .text { font-size: 12px; font-weight: bold; }
+.bg-blue { background: #e0f2fe; color: #0369a1; }
+.bg-green { background: #dcfce7; color: #15803d; }
+.bg-orange { background: #ffedd5; color: #c2410c; }
+.bg-purple { background: #f3e8ff; color: #7e22ce; }
+
+/* ================= JADWAL ================= */
+.list-item { background: var(--bg); padding: 15px; border-radius: 12px; margin-bottom: 10px;
+     display: flex; gap: 15px; align-items: center; }
+.date-box { background: white; padding: 5px 10px; border-radius: 8px; text-align: center;
+     font-size: 12px; font-weight: bold; color: var(--primary); min-width: 50px; }
+.date-box span { display: block; font-size: 18px; }
+.item-info { flex: 1; }
+.item-title { font-size: 14px; font-weight: bold; }
+.item-sub { font-size: 12px; color: var(--text-light); }
+
+/* ================= TUGAS ================= */
+.filters { display: flex; gap: 8px; margin-bottom: 15px; }
+.filter-btn { padding: 6px 12px; border-radius: 20px; border: none; font-size: 12px;
+     cursor: pointer; background: var(--bg); color: var(--text-light); }
+.filter-btn.active { background: var(--primary); color: white; }
+.task-item { display: flex; justify-content: space-between; align-items: center; padding: 15px;
+     border-radius: 12px; border: 1px solid #eee; margin-bottom: 10px; }
+.task-left { display: flex; align-items: center; gap: 12px; }
+.task-checkbox { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--text-light);
+     cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 12px; color: white; }
+.task-checkbox.done { background: var(--success); border-color: var(--success); }
+.task-title { font-size: 14px; font-weight: bold; }
+.task-deadline { font-size: 11px; color: var(--danger); }
+.task-deadline.done { color: var(--text-light); text-decoration: line-through; }
+.badge { font-size: 10px; padding: 4px 8px; border-radius: 10px; font-weight: bold; }
+.badge-danger { background: #fee2e2; color: #b91c1c; }
+.badge-success { background: #d1fae5; color: #047857; }
+
+/* ================= FORM TAMBAH TUGAS ================= */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.form-group input, .form-group select { width: 100%; padding: 12px 15px;
+     border: 1px solid #e5e7eb; border-radius: 10px; font-size: 14px; outline: none; background: #f9fafb; }
+.form-group input:focus, .form-group select:focus { border-color: var(--primary); background: white; }
+
+/* ================= KALENDER ================= */
+.calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: bold; }
+.calendar-nav button { background: none; border: none; font-size: 20px; color: var(--primary); cursor: pointer; }
+.days-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+     font-size: 10px; color: var(--text-light); font-weight: bold; margin-bottom: 5px; }
+.days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.day-cell { height: 35px; display: flex; justify-content: center; align-items: center;
+     border-radius: 50%; font-size: 13px; cursor: pointer; position: relative; }
+.day-cell.today { background: var(--primary); color: white; font-weight: bold; }
+.day-cell.has-event::after { content: ''; position: absolute; bottom: 2px; width: 4px;
+ height: 4px; background: var(--danger); border-radius: 50%; }
+
+/* ================= PROFIL ================= */
+.profile-header { text-align: center; padding: 20px 0; }
+.avatar { width: 80px; height: 80px; background: var(--primary-light); border-radius: 50%;
+     display: flex; justify-content: center; align-items: center; font-size: 40px; margin: 0 auto 10px; }
+.profile-name { font-size: 18px; font-weight: bold; }
+.profile-email { font-size: 12px; color: var(--text-light); }
+.menu-list { margin-top: 20px; }
+.menu-list-item { padding: 15px; border-bottom: 1px solid #eee; display: flex;
+     align-items: center; gap: 15px; cursor: pointer; font-size: 14px; }
+.menu-list-item:hover { background: var(--bg); }
+
+/* ================= NAVIGASI BAWAH ================= */
+.bottom-nav { display: flex; justify-content: space-around; padding: 10px;
+     border-top: 1px solid #eee; background: white; }
+.nav-item { font-size: 10px; color: var(--text-light); cursor: pointer; text-align: center; }
+.nav-item.active { color: var(--primary); font-weight: bold; }
+.nav-item .icon { font-size: 18px; display: block; margin-bottom: 2px; }
+
+/* ================= TOMBOL AUDIO ================= */
+.audio-toggle {
+    position: absolute;
+    bottom: 80px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(79, 60, 201, 0.4);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+.audio-toggle:hover { transform: scale(1.1); }
+.audio-toggle.muted { background: #9ca3af; box-shadow: none; }
+
+/* ================= PROFIL EXTRA ================= */
+.profile-extra {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+/* ================= ITEM JADWAL DINAMIS ================= */
+.jadwal-actions {
+    display: flex;
+    gap: 5px;
+}
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+.icon-btn:hover { background: rgba(0,0,0,0.05); }
+.icon-btn.delete:hover { background: #fee2e2; }
+
+/* ================= FORM GRID 2 KOLOM ================= */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* ================= TANGGAL TERPILIH ================= */
+.day-cell.selected {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: bold;
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+.day-cell:hover:not(.today):not(.selected) {
+    background: var(--bg);
+}
+
+.hidden { display: none !important; }
